@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HoTroCayXanhModelStoreContainer" CdmEntityContainer="HoTroCayXanhEntities">
+    <EntitySetMapping Name="Accounts">
+      <EntityTypeMapping TypeName="HoTroCayXanhModel.Account">
+        <MappingFragment StoreEntitySet="Account">
+          <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserLocationID" ColumnName="UserLocationID" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Plantings">
+      <EntityTypeMapping TypeName="HoTroCayXanhModel.Planting">
+        <MappingFragment StoreEntitySet="Planting">
+          <ScalarProperty Name="TreeID" ColumnName="TreeID" />
+          <ScalarProperty Name="DatePlanted" ColumnName="DatePlanted" />
+          <ScalarProperty Name="NumberPlanted" ColumnName="NumberPlanted" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Water" ColumnName="Water" />
+          <ScalarProperty Name="Fertilize" ColumnName="Fertilize" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="HoTroCayXanhModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Trees">
+      <EntityTypeMapping TypeName="HoTroCayXanhModel.Tree">
+        <MappingFragment StoreEntitySet="Tree">
+          <ScalarProperty Name="TreeID" ColumnName="TreeID" />
+          <ScalarProperty Name="TreeName" ColumnName="TreeName" />
+          <ScalarProperty Name="TreeDescription" ColumnName="TreeDescription" />
+          <ScalarProperty Name="DemandID" ColumnName="DemandID" />
+          <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+          <ScalarProperty Name="TreeLocationID" ColumnName="TreeLocationID" />
+          <ScalarProperty Name="Picture" ColumnName="Picture" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TreeDemands">
+      <EntityTypeMapping TypeName="HoTroCayXanhModel.TreeDemand">
+        <MappingFragment StoreEntitySet="TreeDemand">
+          <ScalarProperty Name="DemandID" ColumnName="DemandID" />
+          <ScalarProperty Name="SoilType" ColumnName="SoilType" />
+          <ScalarProperty Name="WaterNeeds" ColumnName="WaterNeeds" />
+          <ScalarProperty Name="ClimateType" ColumnName="ClimateType" />
+          <ScalarProperty Name="FertilizerNeeds" ColumnName="FertilizerNeeds" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TreeLocations">
+      <EntityTypeMapping TypeName="HoTroCayXanhModel.TreeLocation">
+        <MappingFragment StoreEntitySet="TreeLocation">
+          <ScalarProperty Name="TreeLocationID" ColumnName="TreeLocationID" />
+          <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+          <ScalarProperty Name="ClimateType" ColumnName="ClimateType" />
+          <ScalarProperty Name="SoilType" ColumnName="SoilType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TreeTypes">
+      <EntityTypeMapping TypeName="HoTroCayXanhModel.TreeType">
+        <MappingFragment StoreEntitySet="TreeType">
+          <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+          <ScalarProperty Name="NameOfType" ColumnName="NameOfType" />
+          <ScalarProperty Name="TreeLocationID" ColumnName="TreeLocationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserLocations">
+      <EntityTypeMapping TypeName="HoTroCayXanhModel.UserLocation">
+        <MappingFragment StoreEntitySet="UserLocation">
+          <ScalarProperty Name="UserLocationID" ColumnName="UserLocationID" />
+          <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+          <ScalarProperty Name="ClimateType" ColumnName="ClimateType" />
+          <ScalarProperty Name="SoilType" ColumnName="SoilType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

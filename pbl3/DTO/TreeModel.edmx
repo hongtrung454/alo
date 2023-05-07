@@ -1,0 +1,513 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="HoTroCayXanhModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserLocationID" Type="int" />
+          <Property Name="Type" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Planting">
+          <Key>
+            <PropertyRef Name="TreeID" />
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="TreeID" Type="int" Nullable="false" />
+          <Property Name="DatePlanted" Type="datetime" />
+          <Property Name="NumberPlanted" Type="int" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Water" Type="datetime" />
+          <Property Name="Fertilize" Type="datetime" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Tree">
+          <Key>
+            <PropertyRef Name="TreeID" />
+          </Key>
+          <Property Name="TreeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TreeName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="TreeDescription" Type="nvarchar" MaxLength="1000" />
+          <Property Name="DemandID" Type="int" />
+          <Property Name="TypeID" Type="int" />
+          <Property Name="TreeLocationID" Type="int" />
+          <Property Name="Picture" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TreeDemand">
+          <Key>
+            <PropertyRef Name="DemandID" />
+          </Key>
+          <Property Name="DemandID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SoilType" Type="nvarchar" MaxLength="100" />
+          <Property Name="WaterNeeds" Type="nvarchar" MaxLength="100" />
+          <Property Name="ClimateType" Type="nvarchar" MaxLength="100" />
+          <Property Name="FertilizerNeeds" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TreeLocation">
+          <Key>
+            <PropertyRef Name="TreeLocationID" />
+          </Key>
+          <Property Name="TreeLocationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LocationName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ClimateType" Type="nvarchar" MaxLength="100" />
+          <Property Name="SoilType" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TreeType">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameOfType" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="TreeLocationID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserLocation">
+          <Key>
+            <PropertyRef Name="UserLocationID" />
+          </Key>
+          <Property Name="UserLocationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LocationName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ClimateType" Type="nvarchar" MaxLength="100" />
+          <Property Name="SoilType" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK__Account__UserLoc__4E88ABD4">
+          <End Role="UserLocation" Type="Self.UserLocation" Multiplicity="0..1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserLocation">
+              <PropertyRef Name="UserLocationID" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="UserLocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Planting__TreeID__5070F446">
+          <End Role="Tree" Type="Self.Tree" Multiplicity="1" />
+          <End Role="Planting" Type="Self.Planting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tree">
+              <PropertyRef Name="TreeID" />
+            </Principal>
+            <Dependent Role="Planting">
+              <PropertyRef Name="TreeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Planting__UserNa__5CD6CB2B">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="Planting" Type="Self.Planting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="Planting">
+              <PropertyRef Name="UserName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tree__DemandID__48CFD27E">
+          <End Role="TreeDemand" Type="Self.TreeDemand" Multiplicity="0..1" />
+          <End Role="Tree" Type="Self.Tree" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TreeDemand">
+              <PropertyRef Name="DemandID" />
+            </Principal>
+            <Dependent Role="Tree">
+              <PropertyRef Name="DemandID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tree__TreeLocati__4BAC3F29">
+          <End Role="TreeLocation" Type="Self.TreeLocation" Multiplicity="0..1" />
+          <End Role="Tree" Type="Self.Tree" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TreeLocation">
+              <PropertyRef Name="TreeLocationID" />
+            </Principal>
+            <Dependent Role="Tree">
+              <PropertyRef Name="TreeLocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tree__TypeID__45F365D3">
+          <End Role="TreeType" Type="Self.TreeType" Multiplicity="0..1" />
+          <End Role="Tree" Type="Self.Tree" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TreeType">
+              <PropertyRef Name="TypeID" />
+            </Principal>
+            <Dependent Role="Tree">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HoTroCayXanhModelStoreContainer">
+          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Planting" EntityType="Self.Planting" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tree" EntityType="Self.Tree" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TreeDemand" EntityType="Self.TreeDemand" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TreeLocation" EntityType="Self.TreeLocation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TreeType" EntityType="Self.TreeType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserLocation" EntityType="Self.UserLocation" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Account__UserLoc__4E88ABD4" Association="Self.FK__Account__UserLoc__4E88ABD4">
+            <End Role="UserLocation" EntitySet="UserLocation" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Planting__TreeID__5070F446" Association="Self.FK__Planting__TreeID__5070F446">
+            <End Role="Tree" EntitySet="Tree" />
+            <End Role="Planting" EntitySet="Planting" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Planting__UserNa__5CD6CB2B" Association="Self.FK__Planting__UserNa__5CD6CB2B">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Planting" EntitySet="Planting" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tree__DemandID__48CFD27E" Association="Self.FK__Tree__DemandID__48CFD27E">
+            <End Role="TreeDemand" EntitySet="TreeDemand" />
+            <End Role="Tree" EntitySet="Tree" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tree__TreeLocati__4BAC3F29" Association="Self.FK__Tree__TreeLocati__4BAC3F29">
+            <End Role="TreeLocation" EntitySet="TreeLocation" />
+            <End Role="Tree" EntitySet="Tree" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tree__TypeID__45F365D3" Association="Self.FK__Tree__TypeID__45F365D3">
+            <End Role="TreeType" EntitySet="TreeType" />
+            <End Role="Tree" EntitySet="Tree" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HoTroCayXanhModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="DisplayName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserLocationID" Type="Int32" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="UserLocation" Relationship="Self.FK__Account__UserLoc__4E88ABD4" FromRole="Account" ToRole="UserLocation" />
+          <NavigationProperty Name="Plantings" Relationship="Self.FK__Planting__UserNa__5CD6CB2B" FromRole="Account" ToRole="Planting" />
+        </EntityType>
+        <EntityType Name="Planting">
+          <Key>
+            <PropertyRef Name="TreeID" />
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="TreeID" Type="Int32" Nullable="false" />
+          <Property Name="DatePlanted" Type="DateTime" Precision="3" />
+          <Property Name="NumberPlanted" Type="Int32" />
+          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Water" Type="DateTime" Precision="3" />
+          <Property Name="Fertilize" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Account" Relationship="Self.FK__Planting__UserNa__5CD6CB2B" FromRole="Planting" ToRole="Account" />
+          <NavigationProperty Name="Tree" Relationship="Self.FK__Planting__TreeID__5070F446" FromRole="Planting" ToRole="Tree" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Tree">
+          <Key>
+            <PropertyRef Name="TreeID" />
+          </Key>
+          <Property Name="TreeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TreeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TreeDescription" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="DemandID" Type="Int32" />
+          <Property Name="TypeID" Type="Int32" />
+          <Property Name="TreeLocationID" Type="Int32" />
+          <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Plantings" Relationship="Self.FK__Planting__TreeID__5070F446" FromRole="Tree" ToRole="Planting" />
+          <NavigationProperty Name="TreeDemand" Relationship="Self.FK__Tree__DemandID__48CFD27E" FromRole="Tree" ToRole="TreeDemand" />
+          <NavigationProperty Name="TreeLocation" Relationship="Self.FK__Tree__TreeLocati__4BAC3F29" FromRole="Tree" ToRole="TreeLocation" />
+          <NavigationProperty Name="TreeType" Relationship="Self.FK__Tree__TypeID__45F365D3" FromRole="Tree" ToRole="TreeType" />
+        </EntityType>
+        <EntityType Name="TreeDemand">
+          <Key>
+            <PropertyRef Name="DemandID" />
+          </Key>
+          <Property Name="DemandID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SoilType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="WaterNeeds" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ClimateType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FertilizerNeeds" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Trees" Relationship="Self.FK__Tree__DemandID__48CFD27E" FromRole="TreeDemand" ToRole="Tree" />
+        </EntityType>
+        <EntityType Name="TreeLocation">
+          <Key>
+            <PropertyRef Name="TreeLocationID" />
+          </Key>
+          <Property Name="TreeLocationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LocationName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClimateType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SoilType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Trees" Relationship="Self.FK__Tree__TreeLocati__4BAC3F29" FromRole="TreeLocation" ToRole="Tree" />
+        </EntityType>
+        <EntityType Name="TreeType">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameOfType" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TreeLocationID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Trees" Relationship="Self.FK__Tree__TypeID__45F365D3" FromRole="TreeType" ToRole="Tree" />
+        </EntityType>
+        <EntityType Name="UserLocation">
+          <Key>
+            <PropertyRef Name="UserLocationID" />
+          </Key>
+          <Property Name="UserLocationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LocationName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClimateType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SoilType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Accounts" Relationship="Self.FK__Account__UserLoc__4E88ABD4" FromRole="UserLocation" ToRole="Account" />
+        </EntityType>
+        <Association Name="FK__Account__UserLoc__4E88ABD4">
+          <End Role="UserLocation" Type="Self.UserLocation" Multiplicity="0..1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserLocation">
+              <PropertyRef Name="UserLocationID" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="UserLocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Planting__UserNa__5CD6CB2B">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="Planting" Type="Self.Planting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="Planting">
+              <PropertyRef Name="UserName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Planting__TreeID__5070F446">
+          <End Role="Tree" Type="Self.Tree" Multiplicity="1" />
+          <End Role="Planting" Type="Self.Planting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tree">
+              <PropertyRef Name="TreeID" />
+            </Principal>
+            <Dependent Role="Planting">
+              <PropertyRef Name="TreeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tree__DemandID__48CFD27E">
+          <End Role="TreeDemand" Type="Self.TreeDemand" Multiplicity="0..1" />
+          <End Role="Tree" Type="Self.Tree" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TreeDemand">
+              <PropertyRef Name="DemandID" />
+            </Principal>
+            <Dependent Role="Tree">
+              <PropertyRef Name="DemandID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tree__TreeLocati__4BAC3F29">
+          <End Role="TreeLocation" Type="Self.TreeLocation" Multiplicity="0..1" />
+          <End Role="Tree" Type="Self.Tree" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TreeLocation">
+              <PropertyRef Name="TreeLocationID" />
+            </Principal>
+            <Dependent Role="Tree">
+              <PropertyRef Name="TreeLocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tree__TypeID__45F365D3">
+          <End Role="TreeType" Type="Self.TreeType" Multiplicity="0..1" />
+          <End Role="Tree" Type="Self.Tree" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TreeType">
+              <PropertyRef Name="TypeID" />
+            </Principal>
+            <Dependent Role="Tree">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HoTroCayXanhEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="Self.Account" />
+          <EntitySet Name="Plantings" EntityType="Self.Planting" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Trees" EntityType="Self.Tree" />
+          <EntitySet Name="TreeDemands" EntityType="Self.TreeDemand" />
+          <EntitySet Name="TreeLocations" EntityType="Self.TreeLocation" />
+          <EntitySet Name="TreeTypes" EntityType="Self.TreeType" />
+          <EntitySet Name="UserLocations" EntityType="Self.UserLocation" />
+          <AssociationSet Name="FK__Account__UserLoc__4E88ABD4" Association="Self.FK__Account__UserLoc__4E88ABD4">
+            <End Role="UserLocation" EntitySet="UserLocations" />
+            <End Role="Account" EntitySet="Accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Planting__UserNa__5CD6CB2B" Association="Self.FK__Planting__UserNa__5CD6CB2B">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Planting" EntitySet="Plantings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Planting__TreeID__5070F446" Association="Self.FK__Planting__TreeID__5070F446">
+            <End Role="Tree" EntitySet="Trees" />
+            <End Role="Planting" EntitySet="Plantings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tree__DemandID__48CFD27E" Association="Self.FK__Tree__DemandID__48CFD27E">
+            <End Role="TreeDemand" EntitySet="TreeDemands" />
+            <End Role="Tree" EntitySet="Trees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tree__TreeLocati__4BAC3F29" Association="Self.FK__Tree__TreeLocati__4BAC3F29">
+            <End Role="TreeLocation" EntitySet="TreeLocations" />
+            <End Role="Tree" EntitySet="Trees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tree__TypeID__45F365D3" Association="Self.FK__Tree__TypeID__45F365D3">
+            <End Role="TreeType" EntitySet="TreeTypes" />
+            <End Role="Tree" EntitySet="Trees" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HoTroCayXanhModelStoreContainer" CdmEntityContainer="HoTroCayXanhEntities">
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="HoTroCayXanhModel.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserLocationID" ColumnName="UserLocationID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Plantings">
+            <EntityTypeMapping TypeName="HoTroCayXanhModel.Planting">
+              <MappingFragment StoreEntitySet="Planting">
+                <ScalarProperty Name="TreeID" ColumnName="TreeID" />
+                <ScalarProperty Name="DatePlanted" ColumnName="DatePlanted" />
+                <ScalarProperty Name="NumberPlanted" ColumnName="NumberPlanted" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Water" ColumnName="Water" />
+                <ScalarProperty Name="Fertilize" ColumnName="Fertilize" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="HoTroCayXanhModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trees">
+            <EntityTypeMapping TypeName="HoTroCayXanhModel.Tree">
+              <MappingFragment StoreEntitySet="Tree">
+                <ScalarProperty Name="TreeID" ColumnName="TreeID" />
+                <ScalarProperty Name="TreeName" ColumnName="TreeName" />
+                <ScalarProperty Name="TreeDescription" ColumnName="TreeDescription" />
+                <ScalarProperty Name="DemandID" ColumnName="DemandID" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="TreeLocationID" ColumnName="TreeLocationID" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TreeDemands">
+            <EntityTypeMapping TypeName="HoTroCayXanhModel.TreeDemand">
+              <MappingFragment StoreEntitySet="TreeDemand">
+                <ScalarProperty Name="DemandID" ColumnName="DemandID" />
+                <ScalarProperty Name="SoilType" ColumnName="SoilType" />
+                <ScalarProperty Name="WaterNeeds" ColumnName="WaterNeeds" />
+                <ScalarProperty Name="ClimateType" ColumnName="ClimateType" />
+                <ScalarProperty Name="FertilizerNeeds" ColumnName="FertilizerNeeds" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TreeLocations">
+            <EntityTypeMapping TypeName="HoTroCayXanhModel.TreeLocation">
+              <MappingFragment StoreEntitySet="TreeLocation">
+                <ScalarProperty Name="TreeLocationID" ColumnName="TreeLocationID" />
+                <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+                <ScalarProperty Name="ClimateType" ColumnName="ClimateType" />
+                <ScalarProperty Name="SoilType" ColumnName="SoilType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TreeTypes">
+            <EntityTypeMapping TypeName="HoTroCayXanhModel.TreeType">
+              <MappingFragment StoreEntitySet="TreeType">
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="NameOfType" ColumnName="NameOfType" />
+                <ScalarProperty Name="TreeLocationID" ColumnName="TreeLocationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserLocations">
+            <EntityTypeMapping TypeName="HoTroCayXanhModel.UserLocation">
+              <MappingFragment StoreEntitySet="UserLocation">
+                <ScalarProperty Name="UserLocationID" ColumnName="UserLocationID" />
+                <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+                <ScalarProperty Name="ClimateType" ColumnName="ClimateType" />
+                <ScalarProperty Name="SoilType" ColumnName="SoilType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

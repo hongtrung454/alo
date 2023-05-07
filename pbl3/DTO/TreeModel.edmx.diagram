@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6dc095d15e2046ce831031df5c6db35e" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="HoTroCayXanhModel.Account" Width="1.5" PointX="8.5" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HoTroCayXanhModel.Planting" Width="1.5" PointX="6.125" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HoTroCayXanhModel.sysdiagram" Width="1.5" PointX="14.375" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HoTroCayXanhModel.Tree" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="HoTroCayXanhModel.TreeDemand" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HoTroCayXanhModel.TreeLocation" Width="1.5" PointX="3.875" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HoTroCayXanhModel.TreeType" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HoTroCayXanhModel.UserLocation" Width="1.5" PointX="11" PointY="2.875" IsExpanded="true" />
+        <AssociationConnector Association="HoTroCayXanhModel.FK__Account__UserLoc__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="HoTroCayXanhModel.FK__Planting__UserNa__5CD6CB2B" ManuallyRouted="false" />
+        <AssociationConnector Association="HoTroCayXanhModel.FK__Planting__TreeID__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="HoTroCayXanhModel.FK__Tree__DemandID__48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="HoTroCayXanhModel.FK__Tree__TreeLocati__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="HoTroCayXanhModel.FK__Tree__TypeID__45F365D3" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
