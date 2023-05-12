@@ -29,3 +29,4 @@ D:\pbl3lannuanua\pbl3\pbl3\obj\Debug\pbl3.FLogin.resources
 D:\pbl3lannuanua\pbl3\pbl3\obj\Debug\pbl3.FRegister.resources
 D:\pbl3lannuanua\pbl3\pbl3\obj\Debug\pbl3.FUser.resources
 D:\pbl3lannuanua\pbl3\pbl3\obj\Debug\pbl3.GUI.FAddTreeUser.resources
+D:\pbl3lannuanua\pbl3\pbl3\obj\Debug\pbl3.GUI.UpdateTreePlanting.resources

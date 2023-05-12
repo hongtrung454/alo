@@ -56,10 +56,11 @@ namespace pbl3.DAL
             {
                 // Tìm danh sách đối tượng cần xóa trong cơ sở dữ liệu
                 List<Tree> objectsToDelete = db.Trees.Where(obj => ids.Contains(obj.TreeID)).ToList();
-
+                List<Planting> objectToDelete2 = db.Plantings.Where(obj => ids.Contains(obj.TreeID)).ToList();
                 if (objectsToDelete.Count > 0)
                 {
                     // Xóa danh sách đối tượng khỏi cơ sở dữ liệu
+                    db.Plantings.RemoveRange(objectToDelete2);
                     db.Trees.RemoveRange(objectsToDelete);
                     db.SaveChanges();
 

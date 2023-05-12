@@ -37,7 +37,20 @@ namespace pbl3.GUI
             info.UserName = _acc.UserName;
             info.NumberPlanted = Convert.ToInt32(guna2NumericUpDown1.Value.ToString());
             info.DatePlanted = guna2DateTimePicker1.Value;
-            Planting_BLL.Instance.InsertPlanting(info);
+
+            if (Planting_BLL.Instance.CheckDuplicateUserTree(Convert.ToInt32(info.TreeID), _acc))
+            {
+                
+                MessageBox.Show("Đã có cây này trong danh sách cây trồng");
+            }    
+            else
+            {
+                Planting_BLL.Instance.InsertPlanting(info);
+                MessageBox.Show("Đã thêm thành công");
+                this.Dispose();
+
+            }
+           
 
         }
     }
